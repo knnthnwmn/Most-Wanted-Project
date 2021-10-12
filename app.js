@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+      searchResults = searchByTrait(people);
       break;
       default:
     app(people); // restart app
@@ -68,8 +68,28 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  return foundPerson;
+  displayPerson(person);
 }
+
+
+function searchByTrait(people){
+  let gender = promptFor("What is the person's gender?,", chars);
+  let dob = promptFor("What is the person's date of birth?", chars);
+  let height = promptFor("What is the person's height?", chars);
+  let weight =  promptFor("What is the person's weight?", chars);
+  let eyeColor = promptFor("What is the person's eye color?",chars );
+  let foundPerson = people.filter(function(person){
+    if(person.gender === gender || person.dob === dob || person.height === height
+       || person.weight === weight || person.eyeColor === eyeColor){
+         return true;
+       }
+       else {
+         return false;
+       }
+  })
+  displayPeople(people);
+}
+
 
 // alerts a list of people
 function displayPeople(people){
@@ -83,6 +103,14 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "Date of Birth: " + person.gender + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";  
+  personInfo += "Eye color: " + person.eyeColor + "\n";
+  personInfo += "Occupation:" + person.occupation + "\n";
+  personInfo += "Parents: " + person.parents + "\n";
+  personInfo += "Current spouse: " + person.curretSpouse + "\n";
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
@@ -104,3 +132,4 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
