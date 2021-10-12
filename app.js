@@ -37,22 +37,46 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+      alert(person.firstName + " " + person.lastName + "Gender:" + person.gender + "DOB:" + person.dob + "Eye Color" + person.eyeColor + "Height:" + person.height + "Weight:" + person.weight + "Age:" + person.age + "Occupation" + person.occupation); 
+    
+      // TODO: get person's info
     break;
     case "family":
+      let immediateFamily = []
+        immediateFamily = getImmediateFamily(person, people);
+        if (immediateFamily.length > 1) {
+          displayPeople(immediateFamily)
+        }
+      else if (immediateFamily === 1) {
+        displayPeople(immediateFamily[0])
+      }
+      else (person, people);
+    break;
     // TODO: get person's family
-    break;
-    case "descendants":
+    
+  case "descendants":
     // TODO: get person's descendants
+    let descendantsFamily = []
+      descendantsFamily = getDescendents(person, people);
+      if (descendantsFamily.lenth > 0) {
+        console.log("heres a list of your descendents");
+        displayPeople(descendantsFamily)
+      }
+      else {
+        alert("this person has no descendants");
+        mainMenu(person, people);
+      }
     break;
+    
     case "restart":
     app(people); // restart
     break;
+    
     case "quit":
     return; // stop execution
     default:
     return mainMenu(person, people); // ask again
-  }
+    }
 }
 
 function searchByName(people){
@@ -88,6 +112,72 @@ function searchByTrait(people){
        }
   })
   displayPeople(people);
+}
+function searchByGender(people){
+  let gender = promptFor("Is this person a 'male' or 'female'?", chars);
+  let foundGender = people.filter(function(person){
+    if(person.gender.toLowerCase() === gender.toLowerCase()){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  // TODO: find the person using the name they entered
+  return foundGender;
+
+}
+
+function searchByEyeColor(people){
+  let eyeColor = promptFor("Please enter the individuals eyecolor?", chars);
+  let foundEyeColor = people.filter(function(person){
+    if (person.eyeColor === eyeColor) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+  return foundEyeColor;
+}
+
+function searchByHeight(people){
+  let height = promptFor("Please enter the individuals hieght?", chars);
+  let foundHeight = people.filter(function(person){
+    if(person.height === height) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+  return foundHeight;
+}
+
+function searchByWeight(people){
+  let weight = promptFor("Please enter the individuals weight?", chars);
+  let foundWeight = people.filter(function(person){
+    if(person.weight === weight) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+  return foundWeight;
+}
+
+function searchByOccupation(people){
+  let occupation = promptFor("Please enter the individuals weight?", chars);
+  let foundOccupation = people.filter(function(person){
+    if(person.occupation === occupation) {
+      return true;
+    } 
+    else {
+      return false;
+    }
+  })
+  return foundOccupation;
 }
 
 
@@ -132,4 +222,3 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
-
