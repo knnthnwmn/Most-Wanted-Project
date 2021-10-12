@@ -66,11 +66,12 @@ function mainMenu(person, people){
         alert("this person has no descendants");
         mainMenu(person, people);
       }
-      
     break;
+    
     case "restart":
     app(people); // restart
     break;
+    
     case "quit":
     return; // stop execution
     default:
@@ -162,38 +163,38 @@ function searchByOccupation(people){
 }
 
 
-// // alerts a list of people
-// function displayPeople(people){
-//   alert(people.map(function(person){
-//     return person.firstName + " " + person.lastName;
-//   }).join("\n"));
-// }
+// alerts a list of people
+function displayPeople(people){
+  alert(people.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n"));
+}
 
-// function displayPerson(person){
-//   // print all of the information about a person:
-//   // height, weight, age, name, occupation, eye color.
-//   let personInfo = "First Name: " + person.firstName + "\n";
-//   personInfo += "Last Name: " + person.lastName + "\n";
+function displayPerson(person){
+  // print all of the information about a person:
+  // height, weight, age, name, occupation, eye color.
+  let personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
   
 
-//   // TODO: finish getting the rest of the information to display
-//   alert(personInfo);
-// }
+  // TODO: finish getting the rest of the information to display
+  alert(personInfo);
+}
 
-// // function that prompts and validates user input
-// function promptFor(question, valid){
-//   do{
-//     var response = prompt(question).trim();
-//   } while(!response || !valid(response));
-//   return response;
-// }
+// function that prompts and validates user input
+function promptFor(question, valid){
+  do{
+    var response = prompt(question).trim();
+  } while(!response || !valid(response));
+  return response;
+}
 
-// // helper function to pass into promptFor to validate yes/no answers
-// function yesNo(input){
-//   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
-// }
+// helper function to pass into promptFor to validate yes/no answers
+function yesNo(input){
+  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
+}
 
-// // helper function to pass in as default promptFor validation
-// function chars(input){
-//   return true; // default validation only
-// }
+// helper function to pass in as default promptFor validation
+function chars(input){
+  return true; // default validation only
+}
