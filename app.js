@@ -69,14 +69,17 @@ function mainMenu(person, people){
     break;
     
     case "restart":
-    app(people); // restart
-    break;
-    
+      app(people); 
+      break;
+
     case "quit":
-    return; // stop execution
-    default:
-    return mainMenu(person, people); // ask again
+      return; 
+    
+      default:
+      return mainMenu(person, people); 
     }
+    
+    mainMenu(person, people); // ask again
 }
 
 function searchByName(people){
@@ -162,6 +165,18 @@ function searchByOccupation(people){
   return foundOccupation;
 }
 
+function getDescendants(people, person){
+  let foundDescendants = people.filter(function(person){
+    if (people.person.lenth > 0) {
+  return true;
+}
+    else {
+  return false;
+}
+  
+});
+
+}
 
 // alerts a list of people
 function displayPeople(people){
