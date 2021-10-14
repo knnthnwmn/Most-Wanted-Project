@@ -101,10 +101,10 @@ function searchByName(people){
 function searchByTrait(people){
  let characteristic = promptFor("What characteristc would you like to search by?", chars)
  let searchResults;
- let  foundPerson;
+ 
   switch(characteristic){
     case "gender":
-    searchResults = searchByGender(people);
+    searchResults = searchByGender(people)
     break;
     case "dob":
     searchResults = searchByDob(people);
@@ -113,95 +113,110 @@ function searchByTrait(people){
       searchResults = searchByHeight(people);
       break;
     case "weight":
-      searchResults = searchByWeight(people);
+    searchResults = searchByWeight(people);
       break;
-    case " eye color":
-      searchResults = searchByEyeColor(people);
+    case `eye color`:
+    searchResults = searchByEyeColor(people);
       break;
-     case "quit":
+    case "quit":
         return; // stop execution
       default:
         return searchByTrait(characteristic);
   }
  
-  return foundPerson;
+  alert(searchResults);
 }
 
-<<<<<<< HEAD
-=======
 
 
 
 
->>>>>>> 40740e186cfebab182be9ee6b4604215e860b3f8
 function searchByGender(people){
   let gender = promptFor("Is this person a 'male' or 'female'?", chars);
-  let foundPerson = [] ;
   let foundGender;
+  let foundPerson; 
    foundGender = people.filter(function(person){
+  for(let i = 0; i <= people.length; i++){
     if(person.gender === gender){
-       foundPerson.push(people[0]);
-      
+      return foundPerson +=  person.firstName + " " + person.lastName +"\n";
+
     }
     else{
       return false;
       }
-   return (foundPerson);
+    }
 })
-    alert(foundPerson);
+   return foundPerson;
 }
 
 
 function searchByEyeColor(people){
-  let eyeColor = promptFor("Please enter the individuals eyecolor?", chars);
-  let foundEyeColor = people.filter(function(person){
+  let eyeColor = promptFor("Please enter the individuals eye color?", traits);
+  let foundPerson;
+  let foundEyeColor;
+    foundEyeColor = people.filter(function(person){
+  for(let i = 0; i <= people.length; i++){
     if (person.eyeColor === eyeColor) {
-      return true;
+      return foundPerson +=  person.firstName + " " + person.lastName +"\n";
     }
     else {
       return false;
     }
-  })
-  return foundEyeColor;
+  }
+})
+  return foundPerson;
 }
+
 
 function searchByHeight(people){
   let height = promptFor("Please enter the individuals hieght?", chars);
-  let foundHeight = people.filter(function(person){
-    if(person.height === height) {
-      return true;
+  let foundPerson;
+  let foundHeight;
+    foundHeight = people.filter(function(person){
+  for(let i = 0; i <= people.length; i++){
+    if(person.height == height) {
+      return foundPerson +=  person.firstName + " " + person.lastName +"\n";
     }
     else {
       return false;
     }
+  }
   })
-  return foundHeight;
+  return foundPerson;
 }
 
 function searchByWeight(people){
   let weight = promptFor("Please enter the individuals weight?", chars);
-  let foundWeight = people.filter(function(person){
-    if(person.weight === weight) {
-      return true;
+  let foundPerson;
+  let foundWeight;
+    foundWeight = people.filter(function(person){
+  for(let i = 0; i <= people.length; i++){
+    if(person.weight == weight) {
+      return foundPerson +=  person.firstName + " " + person.lastName +"\n";
     }
     else {
       return false;
     }
+  }
   })
-  return foundWeight;
+  return foundPerson;
 }
 
 function searchByOccupation(people){
   let occupation = promptFor("Please enter the individuals weight?", chars);
-  let foundOccupation = people.filter(function(person){
+  let foundPerson;
+  let foundOccupation
+    foundOccupation = people.filter(function(person){
+    for(let i = 0; i <= people.length; i++){
     if(person.occupation === occupation) {
-      return true;
+      return foundPerson +=  person.firstName + " " + person.lastName +"\n";
     } 
     else {
       return false;
     }
+    }
   })
-  return foundOccupation;
+  return foundPerson;
 }
 
 
@@ -304,10 +319,5 @@ function traits(input){
 
 // helper function to pass in as default promptFor validation
 function chars(input){
-<<<<<<< HEAD
   return true; // default validation only
 }
-=======
-  return input; // default validation only
-}
->>>>>>> 40740e186cfebab182be9ee6b4604215e860b3f8
