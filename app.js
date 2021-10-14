@@ -33,12 +33,11 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
-    case "info":
-      alert(person.firstName + " " + person.lastName + "Gender:" + person.gender + "DOB:" + person.dob + "Eye Color" + person.eyeColor + "Height:" + person.height + "Weight:" + person.weight + "Age:" + person.age + "Occupation" + person.occupation); 
-    
+    case "info": 
+      alert(displayPerson(person));
       // TODO: get person's info
     break;
     case "family":
@@ -90,43 +89,61 @@ function searchByName(people){
     else{
       return false;
     }
-  })
+  });
   // TODO: find the person using the name they entered
-  displayPerson(person);
+   return foundPerson;
 }
-
 
 function searchByTrait(people){
-  let gender = promptFor("What is the person's gender?,", chars);
-  let dob = promptFor("What is the person's date of birth?", chars);
-  let height = promptFor("What is the person's height?", chars);
-  let weight =  promptFor("What is the person's weight?", chars);
-  let eyeColor = promptFor("What is the person's eye color?",chars );
-  let foundPerson = people.filter(function(person){
-    if(person.gender === gender || person.dob === dob || person.height === height
-       || person.weight === weight || person.eyeColor === eyeColor){
-         return true;
-       }
-       else {
-         return false;
-       }
-  })
-  displayPeople(people);
+ let characteristic = promptFor("What characteristc would you like to search by?", chars)
+ let searchResults;
+ let  foundPerson;
+  switch(characteristic){
+    case "gender":
+    searchResults = searchByGender(people);
+    break;
+    case "dob":
+    searchResults = searchByDob(people);
+    break;
+    case "height":
+      searchResults = searchByHeight(people);
+      break;
+    case "weight":
+      searchResults = searchByWeight(people);
+      break;
+    case " eye color":
+      searchResults = searchByEyeColor(people);
+      break;
+     case "quit":
+        return; // stop execution
+      default:
+        return searchByTrait(characteristic);
+  }
+ 
+  return foundPerson;
 }
+
+
+
+
+
 function searchByGender(people){
   let gender = promptFor("Is this person a 'male' or 'female'?", chars);
-  let foundGender = people.filter(function(person){
-    if(person.gender.toLowerCase() === gender.toLowerCase()){
-      return true;
+  let foundPerson = [] ;
+  let foundGender;
+   foundGender = people.filter(function(person){
+    if(person.gender === gender){
+       foundPerson.push(people[0]);
+      
     }
     else{
       return false;
-    }
-  })
-  // TODO: find the person using the name they entered
-  return foundGender;
-
+      }
+   return (foundPerson);
+})
+    alert(foundPerson);
 }
+
 
 function searchByEyeColor(people){
   let eyeColor = promptFor("Please enter the individuals eyecolor?", chars);
@@ -191,20 +208,20 @@ function displayPeople(people){
 function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender: " + person.gender + "\n";
-  personInfo += "Date of Birth: " + person.gender + "\n";
-  personInfo += "Height: " + person.height + "\n";
-  personInfo += "Weight: " + person.weight + "\n";  
-  personInfo += "Eye color: " + person.eyeColor + "\n";
-  personInfo += "Occupation:" + person.occupation + "\n";
-  personInfo += "Parents: " + person.parents + "\n";
-  personInfo += "Current spouse: " + person.curretSpouse + "\n";
+  let personInfo;
+  personInfo = "First Name: " + person[0].firstName + "\n";
+  personInfo += "Last Name: " + person[0].lastName + "\n";
+  personInfo += "Gender: " + person[0].gender + "\n";
+  personInfo += "Date of Birth: " + person[0].dob + "\n";
+  personInfo += "Height: " + person[0].height + "\n";
+  personInfo += "Weight: " + person[0].weight + "\n";  
+  personInfo += "Eye color: " + person[0].eyeColor + "\n";
+  personInfo += "Occupation:" + person[0].occupation + "\n";
+  personInfo += "Parents: " + person[0].parents + "\n";
+  personInfo += "Current spouse: " + person[0].curretSpouse + "\n";
+    return personInfo;
+  }
   // TODO: finish getting the rest of the information to display
-  alert(personInfo);
-}
-
 // function that prompts and validates user input
 function promptFor(question, valid){
   do{
@@ -218,7 +235,12 @@ function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 
+function traits(input){
+  return input.toLowerCase() == "gender" || input.toLowerCase() == "dob" || input.toLowerCase() == "height" 
+  || input.toLowerCase() == "weight" || input.toLowerCase() == "eye color" || input.toLowerCase() == "occupation";
+}
+
 // helper function to pass in as default promptFor validation
 function chars(input){
-  return true; // default validation only
+  return input; // default validation only
 }
