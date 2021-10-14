@@ -10,6 +10,7 @@ function app(people){
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
+      mainMenu(searchResults, people);
       break;
     case 'no':
       searchResults = searchByTrait(people);
@@ -116,6 +117,7 @@ function searchByTrait(people){
   })
   displayPeople(people);
 }
+
 function searchByGender(people){
   let gender = promptFor("Is this person a 'male' or 'female'?", chars);
   let foundGender = people.filter(function(person){
@@ -183,18 +185,61 @@ function searchByOccupation(people){
   return foundOccupation;
 }
 
-function getDescendants(people, person){
-  let foundDescendants = people.filter(function(person){
-    if (people.person.lenth > 0) {
-  return true;
-}
-    else {
-  return false;
-}
-  
-});
 
+
+function descendantInfo(person, people, getAllDescendants){
+	let descendantsArray = people.filter(function(el){
+		for(let i = 0; i < el.parents.length; i++){
+			if(person.id === el.parents[i]){
+				return true;
+			}
+		}
+	});
+	if (getAllDescendants){
+		for(let j = 0; j < descendantsArray.length; j++){
+			descendantsArray.push.apply(descendantsArray, descendantInfo(descendantsArray[j], people, true));
+		}
+  }
+    return descendantsArray;
 }
+
+
+function immediateFamily (person, people) {
+  let family = [];
+  if (person.parents[0] !== undefined){
+    for (let i = 0; i < person.parents.length; i++){
+      let parentId = person.parents[i];
+      for (let i = 0; i < people.length; i++){
+        if (people[i].id === parentId){
+          people[i].Relation = "Parent";
+          family.push(people[i]);
+          
+        }
+      }
+    }
+  }
+  let spouse = people.filter(function (el){
+    if(el.id === person.currentSpouse)
+    return true;
+  });
+  for (let i = 0; i < spouse.length; i++){
+    spouse[i].Relation = "Spouse"
+    family.push(spouse[i]);
+  }
+  let kids = people.filter(function (el){
+    for (let i = 0; i < el.parents.length; i++){
+      if (el.parents[i] === person.id){
+        return true;
+      }
+    }
+  });
+  for (let i = 0; i < kids.length; i++){
+    kids[i].Relation = "Child";
+    family.push(kids[i]);
+  }
+  displayObjects(family, "Relation: ");
+}
+
 
 // alerts a list of people
 function displayPeople(people){
